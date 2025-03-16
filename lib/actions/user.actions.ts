@@ -15,7 +15,7 @@ import { handleError } from "../utils";
 // CREATE
 // POST создать пользователя
 export async function createUser(user: CreateUserParams) {// CreateUserParams это type для TyprScript, from types/index.d.ts
-    console.log("CreateUserParams данные в type ===========>", user)
+    console.log("CreateUserParams данные в type =============>", user)
   try {
     await connectToDatabase();
 
