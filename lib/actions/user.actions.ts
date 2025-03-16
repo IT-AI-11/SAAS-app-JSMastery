@@ -1,7 +1,15 @@
 
 
 
+
+
+//region [rgba(241, 196, 15, 0.2)]
+
 // это server functions, они работают как GET, POST, UPDATE, DELETE
+
+//endregion
+
+
 "use server";
 
 
@@ -13,9 +21,10 @@ import { handleError } from "../utils";
 
 
 
-// together =================================================================
-// from Clerk
-// const user = {
+// together-1 =================================================================
+
+// from Clerk webhook
+// const user555 = {
 //     clerkId: id,
 //     email: email_addresses[0].email_address,
 //     username: username!, 
@@ -23,7 +32,8 @@ import { handleError } from "../utils";
 //     lastName: last_name!,
 //     photo: image_url,
 //   };
-// from types for TypeScript
+
+// from types/index.d.ts for TypeScript
 //   declare type CreateUserParams = {
 //     clerkId: string;
 //     email: string;
@@ -35,6 +45,7 @@ import { handleError } from "../utils";
   
 // CREATE
 // POST создать пользователя
+// to app/api/webhooks/clerk/route.ts
 export async function createUser(user555: CreateUserParams) {// CreateUserParams это type для TyprScript, from types/index.d.ts
     console.log("CreateUserParams данные в type =============>", user555)
   try {
@@ -47,7 +58,7 @@ export async function createUser(user555: CreateUserParams) {// CreateUserParams
     handleError(error);// from lib/utils.ts
   }
 }
-// together =================================================================
+// together-1 =================================================================
 
 
 
@@ -76,6 +87,24 @@ export async function getUserById(userId: string) {// string это type для 
 
 
 
+// together-2 =================================================================
+
+// from Clerk webhook
+//     const user = {
+//       firstName: first_name,
+//       lastName: last_name,
+//       username: username!,
+//       photo: image_url,
+//     };
+
+// from types/index.d.ts for TypeScript
+//   declare type UpdateUserParams = {
+//     firstName: string;
+//     lastName: string;
+//     username: string;
+//     photo: string;
+//   };
+
 // UPDATE
 export async function updateUser(clerkId: string, user: UpdateUserParams) {// UpdateUserParams это type для TyprScript, from types/index.d.ts
   try {
@@ -92,6 +121,14 @@ export async function updateUser(clerkId: string, user: UpdateUserParams) {// Up
     handleError(error);// from lib/utils.ts
   }
 }
+// together-2 =================================================================
+
+
+
+
+
+
+
 
 
 

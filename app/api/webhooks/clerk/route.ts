@@ -140,7 +140,8 @@ export async function POST(req: Request) {
     // получаем все данные пользователя/user из Clerk
     const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
     // вытаскиваем данные пользователя(из строки сверху)  const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
-    // и ложим эти данные в новый обьект    const user = {}
+    // и ложим эти данные в новый обьект    const user555 = {}
+      // восклицательные знаки чтобы error у user не появлялась
     const user555 = {
       clerkId: id,
       email: email_addresses[0].email_address,
@@ -173,22 +174,28 @@ export async function POST(req: Request) {
 
 
 
-
   // UPDATE user
-//   if (eventType === "user.updated") {
-//     const { id, image_url, first_name, last_name, username } = evt.data;
+   // ЗАПРОС НА endpoint/request
+      // получаем данные пользователя/user из Clerk
+   if (eventType === "user.updated") {
 
-//     const user = {
-//       firstName: first_name,
-//       lastName: last_name,
-//       username: username!,
-//       photo: image_url,
-//     };
+    // вытаскиваем данные пользователя(из строки сверху)  const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
+    // и ложим эти данные в новый обьект    const user = {}
+     const { id, image_url, first_name, last_name, username } = evt.data;
 
-//     const updatedUser = await updateUser(id, user);
+     // восклицательные знаки чтобы error у user не появлялась
+    const user = {
+      firstName: first_name!,
+      lastName: last_name!,
+      username: username!,
+      photo: image_url,
+    };
 
-//     return NextResponse.json({ message: "OK", user: updatedUser });
-//   }
+ // вызываем функцию endpoint ==> updateUser(user) чтобы обновить пользователя
+    const updatedUser = await updateUser(id, user);
+
+    return NextResponse.json({ message: "OK", user: updatedUser });
+  }
 
 
 
@@ -199,18 +206,19 @@ export async function POST(req: Request) {
 
 
   // DELETE user
-//   if (eventType === "user.deleted") {
-//     const { id } = evt.data;
+  if (eventType === "user.deleted") {
+    // получаем id пользователя/user из Clerk
+    const { id } = evt.data;
 
-//     const deletedUser = await deleteUser(id!);
+    const deletedUser = await deleteUser(id!);
 
-//     return NextResponse.json({ message: "OK", user: deletedUser });
-//   }
+    return NextResponse.json({ message: "OK", user: deletedUser });
+  }
 
-//   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-//   console.log("Webhook body:", body);
+  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
+  console.log("Webhook body:", body);
 
-//   return new Response("", { status: 200 });
+  return new Response("", { status: 200 });
 
 
 
