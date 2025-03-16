@@ -4,6 +4,8 @@
 
 import React from 'react'
 
+
+
 // to app/(root)/transformations/add/[type]/page.tsx
 const Header = ({ title, subtitle }: { title: string, subtitle?: string }) => {// типы для TypeScript прям в этой строке
   return (

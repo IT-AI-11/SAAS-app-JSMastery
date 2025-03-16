@@ -106,6 +106,8 @@ declare type CreateUserParams = {
     createdAt: Date;
   };
   
+
+  // идет ниже см. в SearchParamProps = {}
   declare type TransformationTypeKey =
     | "restore"
     | "fill"
@@ -131,8 +133,9 @@ declare type CreateUserParams = {
     keysToRemove: string[];
   };
   
+  // to app/(root)/transformations/add/[type]/page.tsx
   declare type SearchParamProps = {
-    params: { id: string; type: TransformationTypeKey };
+    params: { id: string; type: TransformationTypeKey };// приходит см. сверху из 'declare type TransformationTypeKey'
     searchParams: { [key: string]: string | string[] | undefined };
   };
   

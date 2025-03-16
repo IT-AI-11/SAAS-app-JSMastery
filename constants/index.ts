@@ -128,6 +128,9 @@ export const navLinks = [
     },
   ];
   
+
+  // идет в функцию AddTransformationTypePage() она в странице app/(root)/transformations/add/[type]/page.tsx
+  // те это [массив] заголовков и подзаголовков на каждой странице, как [массив] кнопок для навигации
   export const transformationTypes = {
     restore: {
       type: "restore",
@@ -169,6 +172,10 @@ export const navLinks = [
       icon: "filter.svg",
     },
   };
+
+
+
+
   
   export const aspectRatioOptions = {
     "1:1": {
