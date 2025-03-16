@@ -132,10 +132,15 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
-  // CREATE
-  if (eventType === "user.created") {
-    const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
 
+
+  // CREATE
+  // ЗАПРОС НА endpoint/request
+  if (eventType === "user.created") {
+    // получаем все данные пользователя/user из Clerk
+    const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
+    // вытаскиваем данные пользователя(из строки сверху)  const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
+    // и ложим эти данные в новый обьект    const user = {}
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
@@ -144,6 +149,7 @@ export async function POST(req: Request) {
       lastName: last_name!,
       photo: image_url,
     };
+    // вызываем функцию endpoint ==> createUser(user) чтобы создать нового пользователя
     const newUser = await createUser(user);
 
 
