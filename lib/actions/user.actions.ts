@@ -12,20 +12,49 @@ import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
 
 
+
+// together =================================================================
+// from Clerk
+// const user = {
+//     clerkId: id,
+//     email: email_addresses[0].email_address,
+//     username: username!, 
+//     firstName: first_name!,
+//     lastName: last_name!,
+//     photo: image_url,
+//   };
+// from types for TypeScript
+//   declare type CreateUserParams = {
+//     clerkId: string;
+//     email: string;
+//     username: string;
+//     firstName: string;
+//     lastName: string;
+//     photo: string;
+//   };
+  
 // CREATE
 // POST создать пользователя
-export async function createUser(user: CreateUserParams) {// CreateUserParams это type для TyprScript, from types/index.d.ts
-    console.log("CreateUserParams данные в type =============>", user)
+export async function createUser(user555: CreateUserParams) {// CreateUserParams это type для TyprScript, from types/index.d.ts
+    console.log("CreateUserParams данные в type =============>", user555)
   try {
     await connectToDatabase();
 
-    const newUser = await User.create(user);
+    const newUser = await User.create(user555);
 
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     handleError(error);// from lib/utils.ts
   }
 }
+// together =================================================================
+
+
+
+
+
+
+
 
 
 

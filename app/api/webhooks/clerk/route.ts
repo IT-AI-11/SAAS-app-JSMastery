@@ -141,7 +141,7 @@ export async function POST(req: Request) {
     const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
     // вытаскиваем данные пользователя(из строки сверху)  const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
     // и ложим эти данные в новый обьект    const user = {}
-    const user = {
+    const user555 = {
       clerkId: id,
       email: email_addresses[0].email_address,
       username: username!, 
@@ -150,7 +150,7 @@ export async function POST(req: Request) {
       photo: image_url,
     };
     // вызываем функцию endpoint ==> createUser(user) чтобы создать нового пользователя
-    const newUser = await createUser(user);
+    const newUser = await createUser(user555);
 
 
     const client = await clerkClient();// теперь clerkClient асинхронный нужно await
@@ -170,6 +170,10 @@ export async function POST(req: Request) {
 
 
 
+
+
+
+
   // UPDATE user
 //   if (eventType === "user.updated") {
 //     const { id, image_url, first_name, last_name, username } = evt.data;
@@ -185,6 +189,10 @@ export async function POST(req: Request) {
 
 //     return NextResponse.json({ message: "OK", user: updatedUser });
 //   }
+
+
+
+
 
 
 
