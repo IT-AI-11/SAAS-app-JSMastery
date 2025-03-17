@@ -5,9 +5,11 @@
 import React from 'react'
 import Header from '@/components/shared/Header'
 import { transformationTypes } from '@/constants'// см. [массив] transformationTypes
+import { NextPage } from 'next';//for testing
 
 // это страница: app/(root)/transformations/add/[type]/page.tsx
-export default function AddTransformationTypePage({ params: { type } }: SearchParamProps) {
+//export default function AddTransformationTypePage({ params: { type } }: SearchParamProps) {
+  const AddTransformationTypePage: NextPage<SearchParamProps> = ({ params: { type } }) => {//for testing
 //export default function AddTransformationTypePage() {
 
   // см. [массив] transformationTypes
@@ -28,3 +30,4 @@ export default function AddTransformationTypePage({ params: { type } }: SearchPa
     </>
   )
 }
+export default AddTransformationTypePage;//for testing
