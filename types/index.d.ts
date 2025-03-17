@@ -108,12 +108,12 @@ declare type CreateUserParams = {
   
 
   // идет ниже см. в SearchParamProps = {}
-  declare type TransformationTypeKey =
-    | "restore"
-    | "fill"
-    | "remove"
-    | "recolor"
-    | "removeBackground";
+  // declare type TransformationTypeKey =
+  //   | "restore"
+  //   | "fill"
+  //   | "remove"
+  //   | "recolor"
+  //   | "removeBackground";
   
   // ====== URL QUERY PARAMS
   declare type FormUrlQueryParams = {
@@ -134,10 +134,10 @@ declare type CreateUserParams = {
   };
   
   // to app/(root)/transformations/add/[type]/page.tsx
-  declare type SearchParamProps = {
-    params: { id: string; type: TransformationTypeKey };// приходит см. сверху из 'declare type TransformationTypeKey'
-    searchParams: { [key: string]: string | string[] | undefined };
-  };
+  // declare type SearchParamProps = {
+  //   params: { id: string; type: TransformationTypeKey };// приходит см. сверху из 'declare type TransformationTypeKey'
+  //   searchParams: { [key: string]: string | string[] | undefined };
+  // };
   
   declare type TransformationFormProps = {
     action: "Add" | "Update";
