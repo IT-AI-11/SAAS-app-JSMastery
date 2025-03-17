@@ -18,8 +18,8 @@ declare type TransformationTypeKey =
 
 //for testing
 declare type SearchParamProps = {
-  params: { id: string; type: TransformationTypeKey };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ id: string; type: TransformationTypeKey }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 
@@ -34,6 +34,8 @@ console.log(type)
   // см. [массив] transformationTypes
   const transformation = await transformationTypes[type];
   console.log(transformation)
+  console.log(transformation.title)
+  console.log(transformation.subTitle)
 
   return (
     <>
