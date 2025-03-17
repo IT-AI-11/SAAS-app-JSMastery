@@ -108,12 +108,16 @@ declare type CreateUserParams = {
   
 
   // идет ниже см. в SearchParamProps = {}
+  // идет ниже см. в TransformationFormProps = {}
   declare type TransformationTypeKey =
     | "restore"
     | "fill"
     | "remove"
     | "recolor"
     | "removeBackground";
+
+
+    
   
   // ====== URL QUERY PARAMS
   declare type FormUrlQueryParams = {
@@ -154,7 +158,7 @@ declare type CreateUserParams = {
   declare type TransformationFormProps = {
     action: "Add" | "Update";
     userId: string;
-    type: TransformationTypeKey;
+    type: TransformationTypeKey;// приходит см. сверху из 'declare type TransformationTypeKey'
     creditBalance: number;
     data?: IImage | null;
     config?: Transformations | null;
