@@ -25,8 +25,8 @@ import { transformationTypes } from '@/constants'// см. [массив] transfo
 
 
 // это страница: app/(root)/transformations/add/[type]/page.tsx
-//export default function AddTransformationTypePage({ params: { type } }: SearchParamProps) {
-export default async function AddTransformationTypePage({ params }: SearchParamProps) { 
+//export default function AddTransformationTypePage({ params: { type } }: SearchParamProps) {   original
+export default async function AddTransformationTypePage({ params }: SearchParamProps) { //new
 
 const { type } = await params
 //console.log(type)
