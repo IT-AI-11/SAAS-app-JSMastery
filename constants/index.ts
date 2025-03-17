@@ -131,6 +131,7 @@ export const navLinks = [
 
   // идет в функцию AddTransformationTypePage() она в странице app/(root)/transformations/add/[type]/page.tsx
   // те это [массив] заголовков и подзаголовков на каждой странице, как [массив] кнопок для навигации
+  // to TransformationForm.tsx
   export const transformationTypes = {
     restore: {
       type: "restore",
@@ -174,9 +175,7 @@ export const navLinks = [
   };
 
 
-
-
-  
+  // to TransformationForm.tsx
   export const aspectRatioOptions = {
     "1:1": {
       aspectRatio: "1:1",
@@ -207,6 +206,6 @@ export const navLinks = [
     prompt: "",
     publicId: "",
   };
-  
-  
+
+    // to TransformationForm.tsx
   export const creditFee = -1;

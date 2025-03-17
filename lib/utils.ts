@@ -20,7 +20,7 @@ import { type ClassValue, clsx } from "clsx";
 //import qs from "qs";
 import { twMerge } from "tailwind-merge";
 
-//import { aspectRatioOptions } from "@/constants";
+import { aspectRatioOptions } from "@/constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -65,7 +65,7 @@ export const handleError = (error: unknown) => {
 
 // const toBase64 = (str: string) =>
 //   typeof window === "undefined"
-//     ? Buffer.from(str).toString("base64")
+//   //  ? Buffer.from(str).toString("base64")
 //     : window.btoa(str);
 
 // export const dataUrl = `data:image/svg+xml;base64,${toBase64(
@@ -86,7 +86,9 @@ export const handleError = (error: unknown) => {
 //   })}`;
 // };
 
-// // REMOVE KEY FROM QUERY
+
+
+// REMOVE KEY FROM QUERY
 // export function removeKeysFromQuery({
 //   searchParams,
 //   keysToRemove,
@@ -105,74 +107,79 @@ export const handleError = (error: unknown) => {
 //   return `${window.location.pathname}?${qs.stringify(currentUrl)}`;
 // }
 
-// // DEBOUNCE
-// export const debounce = (func: (...args: any[]) => void, delay: number) => {
-//   let timeoutId: NodeJS.Timeout | null;
-//   return (...args: any[]) => {
-//     if (timeoutId) clearTimeout(timeoutId);
-//     timeoutId = setTimeout(() => func.apply(null, args), delay);
-//   };
-// };
 
-// // GE IMAGE SIZE
-// export type AspectRatioKey = keyof typeof aspectRatioOptions;
-// export const getImageSize = (
-//   type: string,
-//   image: any,
-//   dimension: "width" | "height"
-// ): number => {
-//   if (type === "fill") {
-//     return (
-//       aspectRatioOptions[image.aspectRatio as AspectRatioKey]?.[dimension] ||
-//       1000
-//     );
-//   }
-//   return image?.[dimension] || 1000;
-// };
+
+
+
+// // DEBOUNCE
+export const debounce = (func: (...args: any[]) => void, delay: number) => {
+  let timeoutId: NodeJS.Timeout | null;
+  return (...args: any[]) => {
+    if (timeoutId) clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(null, args), delay);
+  };
+};
+
+// GE IMAGE SIZE
+// to TransformationForm.tsx
+export type AspectRatioKey = keyof typeof aspectRatioOptions;
+export const getImageSize = (
+  type: string,
+  image: any,
+  dimension: "width" | "height"
+): number => {
+  if (type === "fill") {
+    return (
+      aspectRatioOptions[image.aspectRatio as AspectRatioKey]?.[dimension] ||
+      1000
+    );
+  }
+  return image?.[dimension] || 1000;
+};
 
 // // DOWNLOAD IMAGE
-// export const download = (url: string, filename: string) => {
-//   if (!url) {
-//     throw new Error("Resource URL not provided! You need to provide one");
-//   }
+export const download = (url: string, filename: string) => {
+  if (!url) {
+    throw new Error("Resource URL not provided! You need to provide one");
+  }
 
-//   fetch(url)
-//     .then((response) => response.blob())
-//     .then((blob) => {
-//       const blobURL = URL.createObjectURL(blob);
-//       const a = document.createElement("a");
-//       a.href = blobURL;
+  fetch(url)
+    .then((response) => response.blob())
+    .then((blob) => {
+      const blobURL = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobURL;
 
-//       if (filename && filename.length)
-//         a.download = `${filename.replace(" ", "_")}.png`;
-//       document.body.appendChild(a);
-//       a.click();
-//     })
-//     .catch((error) => console.log({ error }));
-// };
+      if (filename && filename.length)
+        a.download = `${filename.replace(" ", "_")}.png`;
+      document.body.appendChild(a);
+      a.click();
+    })
+    .catch((error) => console.log({ error }));
+};
 
 // // DEEP MERGE OBJECTS
-// export const deepMergeObjects = (obj1: any, obj2: any) => {
-//   if(obj2 === null || obj2 === undefined) {
-//     return obj1;
-//   }
+export const deepMergeObjects = (obj1: any, obj2: any) => {
+  if(obj2 === null || obj2 === undefined) {
+    return obj1;
+  }
 
-//   let output = { ...obj2 };
+  let output = { ...obj2 };
 
-//   for (let key in obj1) {
-//     if (obj1.hasOwnProperty(key)) {
-//       if (
-//         obj1[key] &&
-//         typeof obj1[key] === "object" &&
-//         obj2[key] &&
-//         typeof obj2[key] === "object"
-//       ) {
-//         output[key] = deepMergeObjects(obj1[key], obj2[key]);
-//       } else {
-//         output[key] = obj1[key];
-//       }
-//     }
-//   }
+  for (let key in obj1) {
+    if (obj1.hasOwnProperty(key)) {
+      if (
+        obj1[key] &&
+        typeof obj1[key] === "object" &&
+        obj2[key] &&
+        typeof obj2[key] === "object"
+      ) {
+        output[key] = deepMergeObjects(obj1[key], obj2[key]);
+      } else {
+        output[key] = obj1[key];
+      }
+    }
+  }
 
-//   return output;
-// };
+  return output;
+};
