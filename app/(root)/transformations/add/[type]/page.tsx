@@ -9,18 +9,18 @@ import { transformationTypes } from '@/constants'// см. [массив] transfo
 
 
 //for testing
-declare type TransformationTypeKey =
-| "restore"
-| "fill"
-| "remove"
-| "recolor"
-| "removeBackground";
+// declare type TransformationTypeKey =
+// | "restore"
+// | "fill"
+// | "remove"
+// | "recolor"
+// | "removeBackground";
 
 //for testing
-declare type SearchParamProps = {
-  params: Promise<{ id: string; type: TransformationTypeKey }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
+// declare type SearchParamProps = {
+//   params: Promise<{ id: string; type: TransformationTypeKey }>;
+//   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+// };
 
 
 
@@ -29,13 +29,13 @@ declare type SearchParamProps = {
 export default async function AddTransformationTypePage({ params }: SearchParamProps) { 
 
 const { type } = await params
-console.log(type)
+//console.log(type)
 
   // см. [массив] transformationTypes
   const transformation = await transformationTypes[type];
-  console.log(transformation)
-  console.log(transformation.title)
-  console.log(transformation.subTitle)
+  // console.log(transformation)
+  // console.log(transformation.title)
+  // console.log(transformation.subTitle)
 
   return (
     <>
