@@ -135,6 +135,8 @@ declare type CreateUserParams = {
 
 
 
+
+
   
   // original DOES NOT WORK
   // to app/(root)/transformations/add/[type]/page.tsx
@@ -142,11 +144,13 @@ declare type CreateUserParams = {
   //   params: { id: string; type: TransformationTypeKey };// приходит см. сверху из 'declare type TransformationTypeKey'
   //   searchParams: { [key: string]: string | string[] | undefined };
   // };
-  // new
+  // new WORKS !!! with Promise<>
   declare type SearchParamProps = {
     params: Promise<{ id: string; type: TransformationTypeKey }>;// приходит см. сверху из 'declare type TransformationTypeKey'
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
   };
+
+
 
 
 

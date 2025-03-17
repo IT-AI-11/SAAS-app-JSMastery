@@ -5,6 +5,7 @@
 import React from 'react'
 import Header from '@/components/shared/Header'
 import { transformationTypes } from '@/constants'// см. [массив] transformationTypes
+import TransformationForm from '@/components/shared/TransformationForm'
 //import { NextPage } from 'next';//for testing
 
 
@@ -26,13 +27,13 @@ import { transformationTypes } from '@/constants'// см. [массив] transfo
 
 // это страница: app/(root)/transformations/add/[type]/page.tsx
 //export default function AddTransformationTypePage({ params: { type } }: SearchParamProps) {   original
-export default async function AddTransformationTypePage({ params }: SearchParamProps) { //new
+export default async function AddTransformationTypePage({ params }: SearchParamProps) { //new WORKS !!!
 
-const { type } = await params
+const { type } = await params // new approach with `await`
 //console.log(type)
 
   // см. [массив] transformationTypes
-  const transformation = await transformationTypes[type];
+  const transformation = await transformationTypes[type]; // new approach with `await`
   // console.log(transformation)
   // console.log(transformation.title)
   // console.log(transformation.subTitle)
@@ -48,6 +49,8 @@ const { type } = await params
         //title="title test"
         //subtitle="subtitle test"
       />
+
+      <TransformationForm />
 
     </>
   )
