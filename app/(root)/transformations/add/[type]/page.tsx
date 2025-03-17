@@ -36,7 +36,7 @@ export default async function AddTransformationTypePage({ params }: SearchParamP
   const { userId } = await auth();
 
   if(!userId) redirect('/sign-in')
-  const user = await getUserById(userId);//from MongoDB
+  const user = await getUserById(userId);// userId from MongoDB
 
 const { type } = await params // new approach with `await`
 //console.log(type)

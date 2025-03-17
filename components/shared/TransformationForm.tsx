@@ -8,6 +8,10 @@ import { CustomField } from './CustomField'
 import { useEffect, useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
+import { updateCredits } from '@/lib/actions/user.actions'
+//import MediaUploader from "./MediaUploader"
+//import TransformedImage from "./TransformedImage"
+
 
 //#region [rgba(2, 196, 15, 0.2)]
 // the code in this 'region' is from ShadcnUI React-Hook-Form + Zod
@@ -35,6 +39,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import MediaUploader from './MediaUploader'
+
 
 
 
@@ -97,22 +103,25 @@ export default function TransformationForm({ action, data = null, userId, type, 
 
 
 
+
+    // 1
     const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {
-        // const imageSize = aspectRatioOptions[value as AspectRatioKey]
+        const imageSize = aspectRatioOptions[value as AspectRatioKey]
 
-        // setImage((prevState: any) => ({
-        //   ...prevState,
-        //   aspectRatio: imageSize.aspectRatio,
-        //   width: imageSize.width,
-        //   height: imageSize.height,
-        // }))
-
-        // setNewTransformation(transformationType.config);
-
-        // return onChangeField(value)
+        setImage((prevState: any) => ({
+            ...prevState,
+            aspectRatio: imageSize.aspectRatio,
+            width: imageSize.width,
+            height: imageSize.height,
+        }))
+        setNewTransformation(transformationType.config);
+        return onChangeField(value)
     }
 
 
+
+
+    // 2
     const onInputChangeHandler = (fieldName: string, value: string, type: string, onChangeField: (value: string) => void) => {
         debounce(() => {
             setNewTransformation((prevState: any) => ({
@@ -123,42 +132,33 @@ export default function TransformationForm({ action, data = null, userId, type, 
                 }
             }))
         }, 1000)();
-
         return onChangeField(value)
     }
 
 
 
 
+    // 3
+    const onTransformHandler = async () => {
+        setIsTransforming(true)
+        setTransformationConfig(
+            deepMergeObjects(newTransformation, transformationConfig)
+        )
+        setNewTransformation(null)
+        startTransition(async () => {
+            await updateCredits(userId, creditFee)
+        })
+    }
+
+
+  
+
+
+
+
 
     return (
-        //#region [rgba(2, 196, 15, 0.2)]
-
-        //     <Form {...form}>
-        //     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        //       {/* <FormField
-        //         control={form.control}
-        //         name="username"
-        //         render={({ field }) => (
-        //           <FormItem>
-        //             <FormLabel>Username</FormLabel>
-        //             <FormControl>
-        //               <Input placeholder="shadcn" {...field} />
-        //             </FormControl>
-        //             <FormDescription>
-        //               This is your public display name.
-        //             </FormDescription>
-        //             <FormMessage />
-        //           </FormItem>
-        //         )}
-        //       />
-        //       <Button type="submit">Submit</Button> */}
-        //     </form>
-        //   </Form>
-
-        //#endregion
-
-
+  
 
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -172,10 +172,10 @@ export default function TransformationForm({ action, data = null, userId, type, 
                     render={({ field }) => <Input {...field} className="input-field" />}
                 />
 
-             
+
                 {type === 'fill' && (
 
-                       // #2 
+                    // #2 
                     <CustomField
                         control={form.control}
                         name="aspectRatio"
@@ -201,10 +201,11 @@ export default function TransformationForm({ action, data = null, userId, type, 
                     />
                 )}
 
-                {/* #3 */}
+          
                 {(type === 'remove' || type === 'recolor') && (
                     <div className="prompt-field">
-                          {/* #3 */}
+
+                        {/* #3 */}
                         <CustomField
                             control={form.control}
                             name="prompt"
@@ -227,7 +228,8 @@ export default function TransformationForm({ action, data = null, userId, type, 
                         />
 
                         {type === 'recolor' && (
-                              // #4 
+
+                            // #4 
                             <CustomField
                                 control={form.control}
                                 name="color"
@@ -252,7 +254,67 @@ export default function TransformationForm({ action, data = null, userId, type, 
 
 
 
-                
+
+
+
+                 <div className="media-uploader-field">
+                     <CustomField
+                        control={form.control}
+                        name="publicId"
+                        className="flex size-full flex-col"
+                        render={({ field }) => (
+
+                            <MediaUploader
+                                onValueChange={field.onChange}
+                                setImage={setImage}
+                                publicId={field.value}
+                                image={image}
+                                type={type}
+                            />
+
+                        )}
+                    />
+
+                  {/*   <TransformedImage
+                        image={image}
+                        type={type}
+                        title={form.getValues().title}
+                        isTransforming={isTransforming}
+                        setIsTransforming={setIsTransforming}
+                        transformationConfig={transformationConfig}
+                    /> 
+                     */}
+
+
+                </div>
+            
+
+
+
+
+
+
+                <div className="flex flex-col gap-4">
+                    <Button
+                        type="button"
+                        className="submit-button capitalize"
+                        disabled={isTransforming || newTransformation === null}
+                        onClick={onTransformHandler}
+                    >
+                        {isTransforming ? 'Transforming...' : 'Apply Transformation'}
+                    </Button>
+                    <Button
+                        type="submit"
+                        className="submit-button capitalize"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Submitting...' : 'Save Image'}
+                    </Button>
+                </div>
+
+
+
+
 
 
 
