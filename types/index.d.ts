@@ -150,11 +150,7 @@ declare type CreateUserParams = {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
   };
 
-
-
-
-
-  
+  // to components/shared/TransformationForm.tsx
   declare type TransformationFormProps = {
     action: "Add" | "Update";
     userId: string;
@@ -164,6 +160,8 @@ declare type CreateUserParams = {
     config?: Transformations | null;
   };
   
+
+
   declare type TransformedImageProps = {
     image: any;
     type: string;

@@ -6,7 +6,11 @@ import React from 'react'
 import Header from '@/components/shared/Header'
 import { transformationTypes } from '@/constants'// см. [массив] transformationTypes
 import TransformationForm from '@/components/shared/TransformationForm'
+import { auth } from '@clerk/nextjs/server'
+import { getUserById } from '@/lib/actions/user.actions'
 //import { NextPage } from 'next';//for testing
+
+import { redirect } from 'next/navigation';
 
 
 //for testing
@@ -29,6 +33,11 @@ import TransformationForm from '@/components/shared/TransformationForm'
 //export default function AddTransformationTypePage({ params: { type } }: SearchParamProps) {   original
 export default async function AddTransformationTypePage({ params }: SearchParamProps) { //new WORKS !!!
 
+  const { userId } = await auth();
+
+  if(!userId) redirect('/sign-in')
+  const user = await getUserById(userId);//from MongoDB
+
 const { type } = await params // new approach with `await`
 //console.log(type)
 
@@ -50,7 +59,14 @@ const { type } = await params // new approach with `await`
         //subtitle="subtitle test"
       />
 
-      <TransformationForm />
+      <section className="mt-10">
+        <TransformationForm 
+          action="Add"
+          userId={user._id}
+          type={transformation.type as TransformationTypeKey}
+          creditBalance={user.creditBalance}
+        />
+      </section>
 
     </>
   )

@@ -22,27 +22,43 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { defaultValues } from '@/constants'
 
 
-
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-})
+// const formSchema = z.object({
+//   username: z.string().min(2).max(50),
+// })
 
 //#endregion
+
+export const formSchema = z.object({
+    title: z.string(),
+    aspectRatio: z.string().optional(),
+    color: z.string().optional(),
+    prompt: z.string().optional(),
+    publicId: z.string(),
+  })
 
 
 
 // to app/(root)/transformations/add/[type]/page.tsx
-export default function TransformationForm() {
+export default function TransformationForm({ action, data = null }: TransformationFormProps) {
+
+    const initialValues = data && action === 'Update' ? {
+        title: data?.title,
+        aspectRatio: data?.aspectRatio,
+        color: data?.color,
+        prompt: data?.prompt,
+        publicId: data?.publicId,
+      } : defaultValues
+
 //#region [rgba(2, 196, 15, 0.2)]
 // the code in this 'region' is from ShadcnUI React-Hook-Form + Zod
       // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-    },
+    // defaultValues: { username: "", },   original
+    defaultValues: initialValues
   })
  
   // 2. Define a submit handler.
@@ -53,12 +69,13 @@ export default function TransformationForm() {
   }
   //#endregion
 
+
   return (
     //#region [rgba(2, 196, 15, 0.2)]
-    
+
     <Form {...form}>
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-      <FormField
+      {/* <FormField
         control={form.control}
         name="username"
         render={({ field }) => (
@@ -74,7 +91,7 @@ export default function TransformationForm() {
           </FormItem>
         )}
       />
-      <Button type="submit">Submit</Button>
+      <Button type="submit">Submit</Button> */}
     </form>
   </Form>
 
