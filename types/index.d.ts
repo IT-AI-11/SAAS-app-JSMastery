@@ -88,15 +88,18 @@ declare type CreateUserParams = {
   };
 
 
+
+
   
   // ====== TRANSACTION PARAMS
+  // to transaction.actions.ts в функцию ==> checkoutCredits()
   declare type CheckoutTransactionParams = {
     plan: string;
     credits: number;
     amount: number;
     buyerId: string;
   };
-  
+   // to transaction.actions.ts в функцию ==> createTransaction()
   declare type CreateTransactionParams = {
     stripeId: string;
     amount: number;
@@ -105,6 +108,9 @@ declare type CreateUserParams = {
     buyerId: string;
     createdAt: Date;
   };
+
+
+
   
 
   // идет ниже см. в SearchParamProps = {}
@@ -143,7 +149,8 @@ declare type CreateUserParams = {
 
   
   // original DOES NOT WORK
-  // to app/(root)/transformations/add/[type]/page.tsx
+  // 1. to app/(root)/transformations/add/[type]/page.tsx
+  // 2. to app/(root)/profile/page.tsx
   // declare type SearchParamProps = {
   //   params: { id: string; type: TransformationTypeKey };// приходит см. сверху из 'declare type TransformationTypeKey'
   //   searchParams: { [key: string]: string | string[] | undefined };
